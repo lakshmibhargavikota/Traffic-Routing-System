@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Traffic Routing System</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <h2 class="text-center text-primary">
+        🚦 Traffic Routing System Using Dijkstra Algorithm
+    </h2>
+
+    <hr>
+
+    <!-- Find Fastest Route -->
+
+    <div class="card shadow p-4 mb-4">
+
+        <h4 class="text-success">Find Fastest Route</h4>
+
+        <form th:action="@{/route}" method="post">
+
+            <div class="mb-3">
+
+                <label class="form-label">Start Location</label>
+
+                <select name="start" class="form-select">
+
+                    <option th:each="loc : ${locations}"
+                            th:value="${loc.key}"
+                            th:text="${loc.value}">
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">Destination</label>
+
+                <select name="end" class="form-select">
+
+                    <option th:each="loc : ${locations}"
+                            th:value="${loc.key}"
+                            th:text="${loc.value}">
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                Find Route
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Update Traffic -->
+
+    <div class="card shadow p-4 mb-4">
+
+        <h4 class="text-danger">Update Traffic</h4>
+
+        <form th:action="@{/traffic}" method="post">
+
+            <div class="mb-3">
+
+                <label class="form-label">Road Start</label>
+
+                <select name="src" class="form-select">
+
+                    <option th:each="loc : ${locations}"
+                            th:value="${loc.key}"
+                            th:text="${loc.value}">
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">Road End</label>
+
+                <select name="dest" class="form-select">
+
+                    <option th:each="loc : ${locations}"
+                            th:value="${loc.key}"
+                            th:text="${loc.value}">
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">Traffic Level</label>
+
+                <select name="level" class="form-select">
+
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+
+                </select>
+
+            </div>
+
+            <button type="submit" class="btn btn-danger">
+                Update Traffic
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Route Result -->
+
+    <div class="card shadow p-4">
+
+        <h4 class="text-primary">Fastest Route</h4>
+
+        <div th:if="${route != null}" class="alert alert-info mt-3">
+            <span th:utext="${route}"></span>
+        </div>
+
+        <div th:if="${route == null}" class="alert alert-secondary mt-3">
+            Select the start and destination, then click <b>Find Route</b>.
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
